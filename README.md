@@ -25,26 +25,7 @@ When Wazuh detects an event, it triggers a **Shuffle Webhook** → Enrichment vi
 
 ## 🔄 Workflow Steps
 1. **Wazuh** generates an alert.  
-2. Alert is sent to **Shuffle** via Webhook Trigger.  
-3. **hash** → VirusTotal **File Lookup**    
+2. The alert is sent to **Shuffle** via a Webhook Trigger.  
+3. If it is a **hash**, perform a VirusTotal **File Lookup**.  
 4. Create a **case** in **TheHive**.  
-5. Send an **email notification**.
-
----
-
-## 📊 Architecture Diagram
-
-```mermaid
-flowchart LR
-    A[Wazuh Alert] --> B[Shuffle Webhook Trigger]
-    B --> C{Is it a hash?}
-    C -->|Yes| D[VirusTotal File Lookup]
-    D --> E[Create Case in TheHive]
-    E --> F[Send Email Notification]
-
-    style A fill:#ffcccc,stroke:#b30000,stroke-width:2px;
-    style B fill:#e6f7ff,stroke:#006699,stroke-width:2px;
-    style C fill:#fff3cd,stroke:#996600,stroke-width:2px;
-    style D fill:#e8ffe8,stroke:#339933,stroke-width:2px;
-    style E fill:#fff0f5,stroke:#b30047,stroke-width:2px;
-    style F fill:#f0f0f0,stroke:#666666,stroke-width:2px;
+5. Send an **email notification**.  
