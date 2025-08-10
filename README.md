@@ -26,10 +26,9 @@ When Wazuh detects an event, it triggers a **Shuffle Webhook** → Enrichment vi
 ## 🔄 Workflow Steps
 1. **Wazuh** generates an alert.  
 2. Alert is sent to **Shuffle** via Webhook Trigger.  
-3. Shuffle checks if the alert contains a **hash** or an **IP address**.  
-4. If **hash** → VirusTotal **File Lookup**    
-5. Create a **case** in **TheHive**.  
-6. Send an **email notification**.
+3. **hash** → VirusTotal **File Lookup**    
+4. Create a **case** in **TheHive**.  
+5. Send an **email notification**.
 
 ---
 
@@ -43,10 +42,9 @@ flowchart LR
     D --> E[Create Case in TheHive]:::thehive
     E --> F[Send Email Notification]:::email
 
-    classDef alert fill=#ffcccc,stroke=#b30000,stroke-width=2px;
-    classDef shuffle fill=#e6f7ff,stroke=#006699,stroke-width=2px;
-    classDef decision fill=#fff3cd,stroke=#996600,stroke-width=2px;
-    classDef vt fill=#e8ffe8,stroke=#339933,stroke-width=2px;
-    classDef thehive fill=#fff0f5,stroke=#b30047,stroke-width=2px;
-    classDef email fill=#f0f0f0,stroke=#666666,stroke-width=2px;
-
+    classDef alert fill="#ffcccc",stroke="#b30000",stroke-width=2px;
+    classDef shuffle fill="#e6f7ff",stroke="#006699",stroke-width=2px;
+    classDef decision fill="#fff3cd",stroke="#996600",stroke-width=2px;
+    classDef vt fill="#e8ffe8",stroke="#339933",stroke-width=2px;
+    classDef thehive fill="#fff0f5",stroke="#b30047",stroke-width=2px;
+    classDef email fill="#f0f0f0",stroke="#666666",stroke-width=2px;
