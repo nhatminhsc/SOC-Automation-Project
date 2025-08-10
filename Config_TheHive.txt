@@ -1,0 +1,45 @@
+#Config TheHive
+
+
+#config Cassandra 
+nano /etc/cassandra/cassandra.yaml
+
+#find and change content
+Cluster_name: '<your_set_name_1>'
+listen_address: <ip_public_vm_thehive>
+rpc: <ip_public_vm_thehive>
+
+# final steps of cassandra
+systemctl stop cassandra.service
+rm -rf /var/lib/cassandra/*
+systemctl start cassandra.service 
+systemctl status cassandra.service
+* Please make sure the service is in the active (running) state. *
+
+
+#config elasticsearch
+nano /etc/elasticsearch/elasticsearch.yml
+
+#find and change content or uncomment
+cluster_name: <your_set_name_2>
+uncomment => network.host: <ip_public_vm_thehive>
+cluster.initial_master_nodes: ["node-1"]
+
+#final steps of elasticsearch
+systemctl start elasticsearch
+systemctl enable elasticsearch
+systemctl status elasticsearch
+* Please make sure the service is in the active (running) state. *
+
+#config TheHive
+nano /etc/thehive/application.conf
+
+#find and change content
+hostname = ["<ip_public_vm_thehive>"]
+cluster_name = <your_set_name_1>
+application.baseUrl = "http://<ip_public_vm_thehive>:9000"
+
+#final steps of TheHive
+systemctl start TheHive
+systemctl enable TheHive
+systemctl status TheHive
