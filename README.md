@@ -36,15 +36,15 @@ When Wazuh detects an event, it triggers a **Shuffle Webhook** → Enrichment vi
 
 ```mermaid
 flowchart LR
-    A[Wazuh Alert]:::alert --> B[Shuffle Webhook Trigger]:::shuffle
-    B --> C{Is it a hash?}:::decision
-    C -->|Yes| D[VirusTotal File Lookup]:::vt
-    D --> E[Create Case in TheHive]:::thehive
-    E --> F[Send Email Notification]:::email
+    A[Wazuh Alert] --> B[Shuffle Webhook Trigger]
+    B --> C{Is it a hash?}
+    C -->|Yes| D[VirusTotal File Lookup]
+    D --> E[Create Case in TheHive]
+    E --> F[Send Email Notification]
 
-    classDef alert fill="#ffcccc",stroke="#b30000",stroke-width=2px;
-    classDef shuffle fill="#e6f7ff",stroke="#006699",stroke-width=2px;
-    classDef decision fill="#fff3cd",stroke="#996600",stroke-width=2px;
-    classDef vt fill="#e8ffe8",stroke="#339933",stroke-width=2px;
-    classDef thehive fill="#fff0f5",stroke="#b30047",stroke-width=2px;
-    classDef email fill="#f0f0f0",stroke="#666666",stroke-width=2px;
+    style A fill:#ffcccc,stroke:#b30000,stroke-width:2px;
+    style B fill:#e6f7ff,stroke:#006699,stroke-width:2px;
+    style C fill:#fff3cd,stroke:#996600,stroke-width:2px;
+    style D fill:#e8ffe8,stroke:#339933,stroke-width:2px;
+    style E fill:#fff0f5,stroke:#b30047,stroke-width:2px;
+    style F fill:#f0f0f0,stroke:#666666,stroke-width:2px;
