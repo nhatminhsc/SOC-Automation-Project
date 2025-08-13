@@ -16,11 +16,13 @@ The two scenarios include:
 1. **Mimikatz Detection Workflow** – Detect malicious process execution via Sysmon logs, enrich with VirusTotal, create a case in TheHive, and notify analysts via email.  
 2. **SSH Brute Force Active Response Workflow** – Detect repeated failed SSH logins, enrich attacker IP via VirusTotal, prompt analyst approval, and automatically block IP using Wazuh Active Response.
 
+📄 **Full write-up / Blog**: [SOC Automation Lab Blog](https://hackmd.io/@FLFwOI7sTB6F-qAm07OXLQ/SJWVEbtDgx)
+
 ---
 
 ## 🛠 Components
 - 🛡 **Wazuh** – Host-based Intrusion Detection System (HIDS) & SIEM  
-- ⚡ **Shuffle SOAR** – Workflow orchestration & automation  s
+- ⚡ **Shuffle SOAR** – Workflow orchestration & automation  
 - 🧠 **VirusTotal** – Threat intelligence for IPs, hashes, domains  
 - 🐝 **TheHive** – Incident Response & Case Management platform  
 - 📧 **Email Service** – Analyst notification channel
@@ -53,27 +55,12 @@ The two scenarios include:
 
 ---
 
-## 🗂 Architecture Diagram
-![Architecture Diagram](https://hackmd.io/_uploads/SkKr3bKvgx.png)
-
----
-
 ## ⚙️ Technologies & Setup
 - **Wazuh Manager**: Deployed on DigitalOcean VM.  
 - **Wazuh Agents**: Installed on Windows (Sysmon logs) & Ubuntu (SSH target).  
 - **TheHive**: Deployed on DigitalOcean VM.  
 - **Shuffle SOAR**: Cloud platform for workflow execution.  
 - **VirusTotal API**: Public/Enterprise API for enrichment.  
-
----
-
-## 📩 Example Alerts
-
-**Mimikatz Alert in TheHive**  
-![Mimikatz TheHive](https://hackmd.io/_uploads/r1SPiGr_xe.png)  
-
-**SSH Brute Force Blocked via Active Response**  
-![SSH Block](https://hackmd.io/_uploads/rkpo945Ogx.png)  
 
 ---
 
