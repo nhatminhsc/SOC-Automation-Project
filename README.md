@@ -1,4 +1,4 @@
-# 🚀 Wazuh → Shuffle → VirusTotal → TheHive → Email Notification
+# 🚀 SOC Automation Lab – Wazuh + Shuffle + VirusTotal + TheHive
 
 <div align="center">
   <img src="https://img.shields.io/badge/Wazuh-Active-blue?logo=wazuh" alt="Wazuh">
@@ -10,22 +10,95 @@
 ---
 
 ## 📌 Overview
-This project demonstrates an **automated alert enrichment and case creation** workflow using:
-- 🛡 **Wazuh** – Security Information and Event Management (SIEM)  
-- ⚡ **Shuffle SOAR** – Automation & Orchestration  
-- 🧠 **VirusTotal** – Threat Intelligence Lookup  
-- 🐝 **TheHive** – Incident Response Case Management  
-- 📧 **Email Service** – Notification Delivery  
+This repository contains **two SOC automation workflows** that demonstrate how to integrate **Wazuh**, **Shuffle SOAR**, **VirusTotal**, and **TheHive** to **detect, enrich, and respond** to security threats.  
 
-When Wazuh detects an event, it triggers a **Shuffle Webhook** → Enrichment via VirusTotal → Case creation in TheHive → Email notification.
-
-📄 **Full write-up**: [HackMD Documentation](https://hackmd.io/CazsmsEeQFixYyIZ101iKg)
+The two scenarios include:
+1. **Mimikatz Detection Workflow** – Detect malicious process execution via Sysmon logs, enrich with VirusTotal, create a case in TheHive, and notify analysts via email.  
+2. **SSH Brute Force Active Response Workflow** – Detect repeated failed SSH logins, enrich attacker IP via VirusTotal, prompt analyst approval, and automatically block IP using Wazuh Active Response.
 
 ---
 
-## 🔄 Workflow Steps
-1. **Wazuh** generates an alert.  
-2. The alert is sent to **Shuffle** via a Webhook Trigger.  
-3. If it is a **hash**, perform a VirusTotal **File Lookup**.  
-4. Create a **case** in **TheHive**.  
-5. Send an **email notification**.  
+## 🛠 Components
+- 🛡 **Wazuh** – Host-based Intrusion Detection System (HIDS) & SIEM  
+- ⚡ **Shuffle SOAR** – Workflow orchestration & automation  s
+- 🧠 **VirusTotal** – Threat intelligence for IPs, hashes, domains  
+- 🐝 **TheHive** – Incident Response & Case Management platform  
+- 📧 **Email Service** – Analyst notification channel
+
+---
+
+## 🔄 Workflow Scenarios
+
+### **1️⃣ Mimikatz Detection Workflow**
+1. **Wazuh** detects suspicious process execution (Mimikatz) via custom Sysmon rule.
+2. Alert is sent to **Shuffle** via Webhook.
+3. **Shuffle** extracts file hash using Regex Capture Group.
+4. **VirusTotal** performs file hash lookup for threat reputation.
+5. **TheHive** creates a new case with alert details and VT enrichment.
+6. **Email Notification** sent to SOC analyst.
+
+---
+
+### **2️⃣ SSH Brute Force Active Response Workflow**
+1. **Wazuh** detects multiple failed SSH login attempts with rule ID `5710`.
+2. Custom aggregation rule (`5764`) triggers when:
+   - Same source IP  
+   - ≥3 events within 60 seconds  
+3. Alert is sent to **Shuffle** via Webhook.
+4. **VirusTotal** checks the attacker’s IP reputation.
+5. Analyst receives **email prompt** for action:
+   - ✅ Approve → Trigger **Wazuh Active Response** to run `firewall-drop` on target agent → Block IP.
+   - ❌ Deny → No action taken.
+6. **TheHive** creates a case for investigation.
+
+---
+
+## 🗂 Architecture Diagram
+![Architecture Diagram](https://hackmd.io/_uploads/SkKr3bKvgx.png)
+
+---
+
+## ⚙️ Technologies & Setup
+- **Wazuh Manager**: Deployed on DigitalOcean VM.  
+- **Wazuh Agents**: Installed on Windows (Sysmon logs) & Ubuntu (SSH target).  
+- **TheHive**: Deployed on DigitalOcean VM.  
+- **Shuffle SOAR**: Cloud platform for workflow execution.  
+- **VirusTotal API**: Public/Enterprise API for enrichment.  
+
+---
+
+## 📩 Example Alerts
+
+**Mimikatz Alert in TheHive**  
+![Mimikatz TheHive](https://hackmd.io/_uploads/r1SPiGr_xe.png)  
+
+**SSH Brute Force Blocked via Active Response**  
+![SSH Block](https://hackmd.io/_uploads/rkpo945Ogx.png)  
+
+---
+
+## ✅ Key Features
+- **Custom Wazuh Rules** for Sysmon Event ID 1 (process creation) & SSH brute force correlation.
+- **Automated Enrichment** with VirusTotal for both file hashes & IPs.
+- **Incident Case Creation** in TheHive for analyst tracking.
+- **Email Notification** for SOC analyst review.
+- **Active Response** to automatically block malicious IPs via `firewall-drop`.
+
+---
+
+## 📚 References
+- [Wazuh Documentation](https://documentation.wazuh.com/current/index.html)  
+- [TheHive Project Documentation](https://docs.strangebee.com/thehive/)  
+- [Shuffle SOAR](https://shuffler.io)  
+- [VirusTotal API Reference](https://developers.virustotal.com/)  
+
+---
+
+## 🏁 Conclusion
+This lab demonstrates how to build an **end-to-end SOC automation pipeline** to:
+- Detect threats from endpoint logs
+- Enrich with threat intelligence
+- Notify and involve analysts
+- Take automated containment actions
+
+By combining **SIEM + SOAR + Threat Intel + IR Platform**, you can drastically reduce **Mean Time to Detect (MTTD)** and **Mean Time to Respond (MTTR)** in real-world security operations.
