@@ -16,7 +16,7 @@ The two scenarios include:
 1. **Mimikatz Detection Workflow** – Detect malicious process execution via Sysmon logs, enrich with VirusTotal, create a case in TheHive, and notify analysts via email.  
 2. **SSH Brute Force Active Response Workflow** – Detect repeated failed SSH logins, enrich attacker IP via VirusTotal, prompt analyst approval, and automatically block IP using Wazuh Active Response.
 
-📄 **Full write-up / Blog**: [SOC Automation Lab Blog](https://hackmd.io/@FLFwOI7sTB6F-qAm07OXLQ/SJWVEbtDgx)
+📄 **Full write-up / Blog (Vietnamese Only)**: [SOC Automation Lab Blog](https://hackmd.io/@FLFwOI7sTB6F-qAm07OXLQ/SJWVEbtDgx)
 
 ---
 
